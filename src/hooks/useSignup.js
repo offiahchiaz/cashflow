@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { projectAuth } from '../firebase/config'
 
-
-
 export const useSignup = () => {
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
@@ -23,6 +21,9 @@ export const useSignup = () => {
       // add display name to user
       await res.user.updateProfile({ displayName })
 
+      setIsPending(false)
+      setError(null)
+
     } catch (err) {
       console.log(err.message)
       setError(err.message)
@@ -30,5 +31,5 @@ export const useSignup = () => {
     }
   }
 
-  return { error, isPending, signup }
+  return { signup, error, isPending }
 }
